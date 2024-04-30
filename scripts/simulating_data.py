@@ -3,7 +3,8 @@ import pandas as pd
 import random 
 from datetime import date
 from dateutil.relativedelta import relativedelta
-from municipalities import codigos_municipios
+from municipalities import codigos_municipios 
+import csv
 
 def gerar_dados_falsos(num_linhas):
     fake = Faker(['pt_BR']) 
@@ -23,7 +24,7 @@ def gerar_dados_falsos(num_linhas):
         codestab = fake.random_number(digits = 5)
         codmunnasc = codmuncart
         locnasc = random.choice(['0','1','2','3','4','5','88','99']) 
-        endnasc = fake.address() 
+        endnasc = fake.address().replace('\n','') 
         bainasc = fake.neighborhood() 
         codbainasc = fake.random_number(digits=5)
         codendnasc = codbainasc
@@ -170,7 +171,7 @@ def gerar_dados_falsos(num_linhas):
 
         ano_base = dtnasc.year 
         codestocor = codufnatu
-        id_cidacs_sinasc_v5 = random.randint(1,10000)
+        id_cidacs_sinasc_v5 = random.randint(1,500)
  
 
         
@@ -186,7 +187,7 @@ def gerar_dados_falsos(num_linhas):
     return dados_falsos
 
 
-num_linhas = 10000
+num_linhas = 500
 
 dados = gerar_dados_falsos(num_linhas)
 
@@ -201,6 +202,7 @@ colunas = ['numerodn', 'codinst', 'numerodv', 'origem', 'prefixodn', 'codcart', 
 
 dados_falsos = pd.DataFrame(dados, columns=colunas)
 
-dados_falsos.to_csv('../output/dados_falsos_sinasc_v5.csv', index=False)
+dados_falsos.to_csv('../output/dados_falsos_sinasc_v5.csv', header=True, sep = ',', index=False)
+
 
 print("Dados falsos gerados e salvos no arquivo 'dados_falsos_sinasc_v5.csv'.") 
