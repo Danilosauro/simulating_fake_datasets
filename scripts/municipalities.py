@@ -18,4 +18,4 @@ else:
 
 df = pd.DataFrame() 
 df['municipios_ibge'] = codigos_municipios
-df.to_csv('../src/codigos_municipios.csv') 
+df.to_csv('../src/codigos_municipios.csv', header = True, sep = ',', index = False) 
